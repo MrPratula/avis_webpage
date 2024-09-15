@@ -200,5 +200,5 @@ def stats():
 
 if __name__ == '__main__':
     print("Starting Flask")
-    # app.run(host="0.0.0.0", port=5000, debug=True)
-    app.run(host="0.0.0.0", port=5000, ssl_context=("config/cert.pem", "config/key.pem"), debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
+    # app.run(host="0.0.0.0", port=5000, ssl_context=("config/cert.pem", "config/key.pem"), debug=True)
