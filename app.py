@@ -55,10 +55,9 @@ class Absences(db.Model):
     )
 
 print("Done")
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
-
-    message = None
 
     if request.method == 'POST':
 
@@ -98,16 +97,6 @@ def home():
         # Commit delle modifiche nel database
         db.session.commit()
 
-        # Crea un messaggio di conferma
-        message = "Selezioni ricevute!<br><br>Membri con ritardo selezionati:<br>"
-        for member in late_members:
-            message += f"{member.nickname}<br>"
-
-        message += "<br>Membri assenti selezionati:<br>"
-        for member in absent_members:
-            message += f"{member.nickname}<br>"
-
-
     # Ottieni la data corrente
     current_date = datetime.now().date()
 
@@ -128,7 +117,6 @@ def home():
 
     return render_template('index.html',
                            members=members,
-                           message=message,
                            late_member_numbers=late_member_numbers,
                            absent_member_numbers=absent_member_numbers)
 
@@ -200,5 +188,8 @@ def stats():
 
 if __name__ == '__main__':
     print("Starting Flask")
-    app.run(host="0.0.0.0", port=5000, debug=True)
+
+    app.run(host="localhost", port=12345, debug=True)
+    # app.run(host="0.0.0.0", port=5000, debug=True)
+
     # app.run(host="0.0.0.0", port=5000, ssl_context=("config/cert.pem", "config/key.pem"), debug=True)

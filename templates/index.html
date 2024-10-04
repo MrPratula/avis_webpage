@@ -14,30 +14,21 @@
             justify-content: center;
             align-items: flex-start;
             height: 100vh;
+            background-color: #f9f9f9; /* Aggiungi un background leggero per estetica */
         }
-        .container {
-            display: flex;
-            width: 100%;
-            height: 100%;
-        }
-        .left-column {
-            width: 50%;
+        .content {
+            width: 80%;
+            max-width: 800px; /* Limita la larghezza massima della tabella */
+            margin: 20px auto; /* Centra la tabella */
             padding: 20px;
             box-sizing: border-box;
-        }
-        .right-column {
-            width: 50%;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-color: white; /* Sfondo bianco per far risaltare la tabella */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Aggiungi un po' di ombra per un look moderno */
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 0;
             font-size: 18px;
             text-align: left;
         }
@@ -53,15 +44,6 @@
             margin: 0;
             vertical-align: middle;
         }
-        .message {
-            width: 100%;
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #f4f4f4;
-            color: #333;
-            box-sizing: border-box;
-        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -69,79 +51,71 @@
         }
         .submit-container {
             display: flex;
-            justify-content: flex-end; /* Aligns button to the right */
+            justify-content: center; /* Centra il tasto Conferma */
             width: 100%;
+            margin-top: 20px; /* Spazio sopra il bottone */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-column">
-            <h1>AVIS assenze e ritardi 2024/2025</h1>
-            <p>Seleziona chi è assente e chi è in ritardo, poi premi conferma.</p>
-            <p>Se una persona è assente, il suo ritardo di oggi viene cancellato.</p>
-            <p>LE MODIFICHE NON POSSONO ESSERE ANNULLATE!</p>
-            <div class="link-container">
-                <a href="{{ url_for('stats') }}">Clicca qui per vedere tutte le assenze e i ritardi</a>
-            </div>
-            <form method="POST" action="/">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nickname</th>
-                            <th>Ritardo</th>
-                            <th>Assente</th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                            {% for member in members %}
-                            <tr>
-                                <td>{{ member.number }}</td>
-                                <td>{{ member.nickname }}</td>
-
-                                <!-- Colonna Ritardo -->
-                                <td class="checkbox-cell">
-                                    {% if member.number in absent_member_numbers %}
-                                        <!-- Se il membro è assente, mostra checkbox finto nella colonna Ritardo -->
-                                        <img src="{{ url_for('static', filename='non_clickable.png') }}" alt="Assente non può essere in ritardo" width="20" height="20">
-                                    {% elif member.number in late_member_numbers %}
-                                        <!-- Se il membro è in ritardo, mostra l'icona del ritardo -->
-                                        <img src="{{ url_for('static', filename='red_checkbox.png') }}" alt="Ritardo" width="20" height="20">
-                                    {% else %}
-                                        <!-- Se il membro non è né assente né in ritardo, mostra il checkbox -->
-                                        <input type="checkbox" name="late_{{ member.number }}" value="{{ member.number }}">
-                                    {% endif %}
-                                </td>
-
-                                <!-- Colonna Assente -->
-                                <td class="checkbox-cell">
-                                    {% if member.number in absent_member_numbers %}
-                                        <!-- Se il membro è assente, mostra l'icona dell'assenza -->
-                                        <img src="{{ url_for('static', filename='red_checkbox.png') }}" alt="Assente" width="20" height="20">
-                                    {% else %}
-                                        <!-- Altrimenti, mostra il checkbox -->
-                                        <input type="checkbox" name="absent_{{ member.number }}" value="{{ member.number }}">
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                </table>
-                <!-- Button to be placed in the right column -->
-                <div class="submit-container">
-                    <button type="submit">Conferma</button>
-                </div>
-            </form>
+    <div class="content">
+        <h1>AVIS assenze e ritardi 2024/2025</h1>
+        <p>Seleziona chi è assente e chi è in ritardo, poi premi conferma.</p>
+        <p>Se una persona è assente, il suo ritardo di oggi viene cancellato.</p>
+        <p>LE MODIFICHE NON POSSONO ESSERE ANNULLATE!</p>
+        <div class="link-container">
+            <a href="{{ url_for('stats') }}">Clicca qui per vedere tutte le assenze e i ritardi</a>
         </div>
-        <div class="right-column">
-            <!-- Display confirmation message if exists -->
-            {% if message %}
-            <div class="message">
-                {{ message|safe }}
+        <p></p>
+        <form method="POST" action="/">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nickname</th>
+                        <th>Ritardo</th>
+                        <th>Assente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>{{ member.number }}</td>
+                        <td>{{ member.nickname }}</td>
+
+                        <!-- Colonna Ritardo -->
+                        <td class="checkbox-cell">
+                            {% if member.number in absent_member_numbers %}
+                                <!-- Se il membro è assente, mostra checkbox finto nella colonna Ritardo -->
+                                <img src="{{ url_for('static', filename='non_clickable.png') }}" alt="Assente non può essere in ritardo" width="20" height="20">
+                            {% elif member.number in late_member_numbers %}
+                                <!-- Se il membro è in ritardo, mostra l'icona del ritardo -->
+                                <img src="{{ url_for('static', filename='red_checkbox.png') }}" alt="Ritardo" width="20" height="20">
+                            {% else %}
+                                <!-- Se il membro non è né assente né in ritardo, mostra il checkbox -->
+                                <input type="checkbox" name="late_{{ member.number }}" value="{{ member.number }}">
+                            {% endif %}
+                        </td>
+
+                        <!-- Colonna Assente -->
+                        <td class="checkbox-cell">
+                            {% if member.number in absent_member_numbers %}
+                                <!-- Se il membro è assente, mostra l'icona dell'assenza -->
+                                <img src="{{ url_for('static', filename='red_checkbox.png') }}" alt="Assente" width="20" height="20">
+                            {% else %}
+                                <!-- Altrimenti, mostra il checkbox -->
+                                <input type="checkbox" name="absent_{{ member.number }}" value="{{ member.number }}">
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- Button centrato -->
+            <div class="submit-container">
+                <button type="submit">Conferma</button>
             </div>
-            {% endif %}
-        </div>
+        </form>
     </div>
 </body>
 </html>
