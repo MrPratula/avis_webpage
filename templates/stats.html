@@ -5,40 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVIS Stats</title>
     <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        img {
-            margin: 20px;
-            width: 80%;
-        }
-        h1 {
-            text-align: center;
-        }
-        a {
-            text-decoration: none;
-            font-size: 18px;
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <!-- Collega lo stesso file CSS esterno -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <a href="{{ url_for('home') }}">Torna alla home</a>
+    <a href="{{ url_for('home') }}" class="back-link">Torna alla home</a>
     <h1>Statistiche di Assenze e Ritardi</h1>
 
-    <img src="data:image/png;base64,{{ absence_img }}" alt="Grafico delle assenze">
-
-    <img src="data:image/png;base64,{{ delay_img }}" alt="Grafico dei ritardi">
+    <img src="data:image/png;base64,{{ absence_img }}" alt="Grafico delle assenze" class="stats-img">
+    <img src="data:image/png;base64,{{ delay_img }}" alt="Grafico dei ritardi" class="stats-img">
 
 </body>
 </html>

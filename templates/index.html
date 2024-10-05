@@ -5,57 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVIS assenze</title>
     <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            background-color: #f9f9f9; /* Aggiungi un background leggero per estetica */
-        }
-        .content {
-            width: 80%;
-            max-width: 800px; /* Limita la larghezza massima della tabella */
-            margin: 20px auto; /* Centra la tabella */
-            padding: 20px;
-            box-sizing: border-box;
-            background-color: white; /* Sfondo bianco per far risaltare la tabella */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Aggiungi un po' di ombra per un look moderno */
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 18px;
-            text-align: left;
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .checkbox-cell input[type="checkbox"] {
-            margin: 0;
-            vertical-align: middle;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .submit-container {
-            display: flex;
-            justify-content: center; /* Centra il tasto Conferma */
-            width: 100%;
-            margin-top: 20px; /* Spazio sopra il bottone */
-        }
-    </style>
+    <!-- Collega il file CSS esterno -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="content">
@@ -66,7 +17,6 @@
         <div class="link-container">
             <a href="{{ url_for('stats') }}">Clicca qui per vedere tutte le assenze e i ritardi</a>
         </div>
-        <p></p>
         <form method="POST" action="/">
             <table>
                 <thead>
@@ -93,7 +43,9 @@
                                 <img src="{{ url_for('static', filename='red_checkbox.png') }}" alt="Ritardo" width="20" height="20">
                             {% else %}
                                 <!-- Se il membro non è né assente né in ritardo, mostra il checkbox -->
-                                <input type="checkbox" name="late_{{ member.number }}" value="{{ member.number }}">
+                                <label>
+                                    <input type="checkbox" name="late_{{ member.number }}" value="{{ member.number }}">
+                                </label>
                             {% endif %}
                         </td>
 
