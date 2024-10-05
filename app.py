@@ -1,13 +1,19 @@
 import json
 
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
+
 import io
 import base64
 
 from datetime import datetime
 
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+
+
 
 app = Flask(__name__)
 
