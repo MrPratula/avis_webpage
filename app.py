@@ -190,6 +190,6 @@ if __name__ == '__main__':
     print("Starting Flask")
 
     #app.run(host="localhost", port=12345, debug=True)
-    app.run(host="0.0.0.0", port=5000, ssl_context=("/etc/letsencrypt/live/mrpratula.duckdns.org/fullchain.pem", "/etc/letsencrypt/live/mrpratula.duckdns.org/privkey.pem"), debug=True)
+    app.run(host="0.0.0.0", port=80, ssl_context=("/etc/letsencrypt/live/mrpratula.duckdns.org/fullchain.pem", "/etc/letsencrypt/live/mrpratula.duckdns.org/privkey.pem"), debug=True)
 
     # app.run(host="0.0.0.0", port=5000, ssl_context=("config/cert.pem", "config/key.pem"), debug=True)
