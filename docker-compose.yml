@@ -1,0 +1,6 @@
+services:
+  flask_app:
+    build: .
+    ports:
+      - "433:433"
+    restart: always
