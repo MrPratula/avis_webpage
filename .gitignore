@@ -3,6 +3,8 @@
 .idea/**
 .git/**
 __pycache__/**
+/output/**
+
 
 /config/db_credentials.json
 /config/cert.pem
